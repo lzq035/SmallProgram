@@ -3,7 +3,8 @@
     "pages/home/home",
     "pages/my/my",
     "pages/product/product",
-    "pages/salary/salary"
+    "pages/salary/salary",
+    "pages/authorize/authorize"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -16,9 +17,9 @@
   "enablePullDownRefresh": true,
   "tabBar": {
     "color": "#a6a6a6",
-    "selectedColor": "#2d94f8",
+    "selectedColor": "#69C3AA",
     "backgroundColor": "#fff",
-    "borderStyle": "#e5e5e5",
+    "borderStyle": "white",
     "list": [
       {
         "pagePath": "pages/home/home",
