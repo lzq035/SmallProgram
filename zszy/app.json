@@ -1,0 +1,37 @@
+{
+  "pages":[
+    "pages/home/home",
+    "pages/my/my",
+    "pages/product/product",
+    "pages/salary/salary"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true,
+    "onReachBottomDistance": 50
+  },
+  "enablePullDownRefresh": true,
+  "tabBar": {
+    "color": "#a6a6a6",
+    "selectedColor": "#2d94f8",
+    "backgroundColor": "#fff",
+    "borderStyle": "#e5e5e5",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "images/home_icon.png",
+        "selectedIconPath": "images/home_icon_active.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "images/my_icon.png",
+        "selectedIconPath": "images/my_icon_active.png"
+      }
+    ]
+  }
+}

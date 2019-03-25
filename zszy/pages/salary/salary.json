@@ -1,0 +1,7 @@
+{
+  "navigationBarTextStyle": "white",
+  "navigationBarBackgroundColor": "#2D94F8",
+  "backgroundColor": "#2D94F8",
+  "navigationBarTitleText": "工资查询",
+  "enablePullDownRefresh": false
+}

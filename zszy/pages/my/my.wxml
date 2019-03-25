@@ -1,0 +1,28 @@
+<!--my.wxml-->
+<view class="container">
+	<view class="userinfo">
+		<image wx:if="{{userInfo && userInfo.avatarUrl}}" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+		<text class="userinfo-nickname">{{ userInfo.nickName }}</text>
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> </button>
+	</view>
+  <view class='content-list'>
+   <view class='list-item'>
+    <view class='content-list-title'>欢迎您</view>
+    <view class='content-list-content'>明建江</view>
+   </view>
+    <view class='list-item'>
+      <view class='content-list-title'>性别：</view>
+      <view class='content-list-content'>男</view>
+    </view>
+    <view class='list-item'>
+      <view class='content-list-title'>工号：</view>
+      <view class='content-list-content'>ZYZMM16005</view>
+    </view>
+  </view>
+  <view class="about" bindtap="aboutUs">
+    关于我们
+  </view>
+  <view class="bind-btn" >
+    <button type="warn" bindtap="relogin">立即绑定</button>
+  </view>
+</view>

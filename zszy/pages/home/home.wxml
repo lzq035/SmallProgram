@@ -1,0 +1,57 @@
+<!--home.wxml-->
+<view class="container">
+  <view class="content-top content-box">
+    <block>
+      <image src='../../images/zy_bg.jpg' class="zy_bg" mode="widthFix"></image>
+    </block>
+    <block>
+      <view class='content-list' bindtap="navigateTo" data-address="product">
+        <image src='../../images/clxc_icon.png' class="zy_bg" mode="widthFix" ></image>
+        <text class="title">产量查询</text>
+      </view>
+      <view class='content-list' bindtap="navigateTo" data-address="card">
+        <image src='../../images/ykt_icon.png' class="zy_bg" mode="widthFix"></image>
+        <text class="title">一卡通</text>
+      </view>
+      <view class='content-list' bindtap="navigateTo" data-address="shop">
+        <image src='../../images/zysc_icon.png' class="zy_bg" mode="widthFix"></image>
+        <text class="title">众益商城</text>
+      </view>
+      <view class='content-list' bindtap="navigateTo" data-address="salary">
+        <image src='../../images/gzcx_icon.png' class="zy_bg" mode="widthFix"></image>
+        <text class="title">工资查询</text>
+      </view>
+    </block>
+  </view>
+  <view class="content-box">
+    <view class='content-header'>
+      <view class='content-header-icon'>
+        <image src='../../images/zycl_icon.png' class="zy_bg" mode="widthFix"></image>
+      </view>
+      <view class="content-header-title">
+         昨日产量
+      </view>
+      <view class='clear'></view>
+    </view>
+    <view class='content-content'>
+      <view class='content-content-title'>总小时：</view>
+      <view class='content-content-content'>暂无数据</view>
+      <view class='content-content-title'>总件数：</view>
+      <view class='content-content-content'>暂无数据</view>
+    </view>
+  </view>
+  <view class="content-box">
+    <view class='content-header'>
+      <view class='content-header-icon'>
+        <image src='../../images/yktye_icon.png' class="zy_bg" mode="widthFix"></image>
+      </view>
+      <view class="content-header-title">
+         一卡通余额
+      </view>
+      <view class='clear'></view>
+    </view>
+    <view class='content-content'>
+      <view class='content-content-content'>暂未绑定一卡通</view>
+    </view>
+  </view>
+</view>

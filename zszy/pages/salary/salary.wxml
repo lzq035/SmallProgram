@@ -1,0 +1,13 @@
+<!-- product -->
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">查询月份</view>
+    </view>
+    <view class="weui-cell__bd">
+      <picker mode="date" value="{{date}}" fields='month' bindchange="bindDateChange" end="{{date}}">
+        <view class="weui-input">{{date}}</view>
+      </picker>
+    </view>
+  </view>
+</view>
