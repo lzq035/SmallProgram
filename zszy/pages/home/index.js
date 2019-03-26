@@ -15,7 +15,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
   },
   navigateTo: function(e){
     const page = e.currentTarget.dataset.address;
@@ -46,9 +45,22 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+    //获得dialog组件
+    this.dialog = this.selectComponent("#dialog");
+    this.showDialog()
+  },
+  showDialog: function () {
+    this.dialog.showDialog();
   },
 
+  confirmEvent: function () {
+    this.dialog.hideDialog();
+  },
+
+  bindGetUserInfo: function () {
+    // 用户点击授权后，这里可以做一些登陆操作
+    // this.login();
+  },
   /**
    * 生命周期函数--监听页面显示
    */

@@ -1,6 +1,6 @@
 {
   "pages":[
-    "pages/home/home",
+    "pages/home/index",
     "pages/my/my",
     "pages/product/product",
     "pages/salary/salary",
@@ -22,7 +22,7 @@
     "borderStyle": "white",
     "list": [
       {
-        "pagePath": "pages/home/home",
+        "pagePath": "pages/home/index",
         "text": "首页",
         "iconPath": "images/home_icon.png",
         "selectedIconPath": "images/home_icon_active.png"

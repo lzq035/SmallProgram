@@ -85,17 +85,17 @@ App({
     })
 
     // 判断是否登录
-    let token = wx.getStorageSync('token');
-    if (!token) {
-      that.goLoginPageTimeOut()
-      return
-    }
-    WXAPI.checkToken(token).then(function (res) {
-      if (res.code != 0) {
-        wx.removeStorageSync('token')
-        that.goLoginPageTimeOut()
-      }
-    })
+    // let token = wx.getStorageSync('token');
+    // if (!token) {
+    //   that.goLoginPageTimeOut()
+    //   return
+    // }
+    // WXAPI.checkToken(token).then(function (res) {
+    //   if (res.code != 0) {
+    //     wx.removeStorageSync('token')
+    //     that.goLoginPageTimeOut()
+    //   }
+    // })
   },
   goLoginPageTimeOut: function () {
     if (this.navigateToLogin) {

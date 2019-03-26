@@ -2,5 +2,8 @@
   "navigationBarTextStyle": "white",
   "navigationBarBackgroundColor": "#69C3AA",
   "backgroundColor": "#69C3AA",
-  "navigationBarTitleText": "掌上众益"
+  "navigationBarTitleText": "掌上众益",
+  "usingComponents": {
+    "dialog": "../components/dialog/dialog"
+  }
 }
