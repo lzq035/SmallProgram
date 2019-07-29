@@ -1,4 +1,4 @@
-const WXAPI = require('wxapi/main')
+const { WXLOGIN } = require('utils/util.js');
 App({
   navigateToLogin: false,
   onLaunch: function () {
@@ -40,28 +40,6 @@ App({
         wx.hideToast()
       }
     });
-    //  获取商城名称
-    WXAPI.queryConfig({
-      key: 'mallName'
-    }).then(function (res) {
-      if (res.code == 0) {
-        wx.setStorageSync('mallName', res.data.value);
-      }
-    })
-    WXAPI.scoreRules({
-      code: 'goodReputation'
-    }).then(function (res) {
-      if (res.code == 0) {
-        that.globalData.order_reputation_score = res.data[0].score;
-      }
-    })
-    // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        console.log('login', res);
-      }
-    })
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -70,9 +48,9 @@ App({
           wx.getUserInfo({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
-              console.log('userInfo', res);
-              this.globalData.userInfo = res.userInfo
-
+              console.log('scope.userInfo', res)
+              this.globalData.userInfo = res;
+              WXLOGIN(res.encryptedData, res.iv);
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {
@@ -82,41 +60,9 @@ App({
           })
         }
       }
-    })
-
-    // 判断是否登录
-    // let token = wx.getStorageSync('token');
-    // if (!token) {
-    //   that.goLoginPageTimeOut()
-    //   return
-    // }
-    // WXAPI.checkToken(token).then(function (res) {
-    //   if (res.code != 0) {
-    //     wx.removeStorageSync('token')
-    //     that.goLoginPageTimeOut()
-    //   }
-    // })
-  },
-  goLoginPageTimeOut: function () {
-    if (this.navigateToLogin) {
-      return
-    }
-    this.navigateToLogin = true
-    setTimeout(function () {
-      wx.redirectTo({
-        url: "/pages/authorize/authorize"
-      })
-    }, 1000)
-  },
-  goStartIndexPage: function () {
-    setTimeout(function () {
-      wx.redirectTo({
-        url: "/pages/start/start"
-      })
-    }, 1000)
+    });
   },
   globalData: {
-    isConnected: true,
     userInfo: null
   }
 })

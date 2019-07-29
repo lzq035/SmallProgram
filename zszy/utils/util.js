@@ -1,3 +1,4 @@
+import WXAPI from '../wxapi/main.js'
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -27,8 +28,22 @@ const formatMonth = date => {
   return [year, month].map(formatNumber).join('-')
 };
 
+const WXLOGIN = (encryptedData,iv)=>{
+  //通过code获取用户信息
+  wx.login({
+    // provider: 'weixin',
+    success: function (res) {
+      let code = res.code;
+      WXAPI.login({ code, encryptedData,iv }).then(res => {
+        console.log(res)
+      })
+    }
+  });
+}
+
 module.exports = {
-  formatTime: formatTime,
-  formatDate: formatDate,
-  formatMonth: formatMonth
+  formatTime,
+  formatDate,
+  formatMonth,
+  WXLOGIN,
 }

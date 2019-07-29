@@ -7,9 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    userInfo:{},
+    hasAuthorize: false
   },
 
   /**
@@ -17,38 +16,17 @@ Page({
    */
   onLoad: function (options) {
     if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse) {
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
+      this.setData({ hasAuthorize: true })
+      this.setData({ userInfo: app.globalData.userInfo.userInfo })
+      this.initDialog();
     } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
+      wx.getSetting({
         success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
+          res.authSetting['scope.userInfo'] == undefined ? this.setData({ hasAuthorize: false }) : this.setData({ hasAuthorize: true })
+          if (res.authSetting['scope.userInfo'] == undefined) this.initDialog();
         }
       })
     }
-  },
-  getUserInfo: function (e) {
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
   },
 
   /**
@@ -57,6 +35,31 @@ Page({
   onReady: function () {
     
   },
+  initDialog() {
+    //获得dialog组件
+    this.dialog = this.selectComponent("#dialog1");
+    !this.data.hasAuthorize ? this.showDialog() : this.hideDialog()
+  },
+  showDialog: function () {
+    this.dialog.showDialog();
+  },
+  hideDialog:function() {
+    wx.showTabBar();
+    this.dialog.hideDialog();
+  },
+  confirmEvent: function () {
+  },
+
+  bindGetUserInfo: function (e) {
+    // 用户点击授权后，这里可以做一些登陆操作
+    if (e.detail.errMsg == 'getUserInfo:ok') {
+      this.dialog.hideDialog();
+      app.globalData.userInfo = e.detail
+      this.setData({ userInfo: app.globalData.userInfo })
+      this.setData({ hasAuthorize: true })
+    }
+    // this.login();
+  },
   aboutUs: function () {
     wx.showModal({
       title: '掌上众益',
@@ -64,19 +67,15 @@ Page({
       showCancel: false
     })
   },
-  relogin:function(){
-    wx.showToast({
-      title: '暂无绑定功能',
-      duration: 1000,
-      // icon:'loading',
-      image:'../../images/error_icon.png'
+  bind:function(){
+    wx.navigateTo({
+      url: '/pages/bind/index',
     })
   },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
   },
 
   /**

@@ -8,13 +8,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    hasAuthorize:false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+   
   },
   navigateTo: function(e){
     const page = e.currentTarget.dataset.address;
@@ -38,34 +39,56 @@ Page({
         }
       })
     }else {
-    wx.navigateTo({ url: `../${page}/${page}`})
+    wx.navigateTo({ url: `../${page}/index`})
     }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+    
+  },
+  initDialog() {
     //获得dialog组件
     this.dialog = this.selectComponent("#dialog");
-    this.showDialog()
+    !this.data.hasAuthorize ? this.showDialog() : this.hideDialog()
   },
   showDialog: function () {
+    wx.hideTabBar();
     this.dialog.showDialog();
   },
-
-  confirmEvent: function () {
+  hideDialog: function () {
+    wx.showTabBar();
     this.dialog.hideDialog();
   },
+  confirmEvent: function () {
+  },
 
-  bindGetUserInfo: function () {
+  bindGetUserInfo: function (e) {
     // 用户点击授权后，这里可以做一些登陆操作
+    if (e.detail.errMsg == 'getUserInfo:ok'){
+      // this.hideDialog();
+      wx.showTabBar();
+      app.globalData.userInfo = e.detail
+      this.setData({ hasAuthorize: true})
+    }
     // this.login();
   },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    if (app.globalData.userInfo) {
+      this.setData({ hasAuthorize: true })
+      this.initDialog();
+      return
+    }
+    wx.getSetting({
+      success: res => {
+        res.authSetting['scope.userInfo'] == undefined ? this.setData({ hasAuthorize: false }) : this.setData({ hasAuthorize: true })
+        if (res.authSetting['scope.userInfo'] == undefined) this.initDialog();
+      }
+    })
   },
 
   /**

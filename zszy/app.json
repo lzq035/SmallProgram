@@ -1,10 +1,10 @@
 {
-  "pages":[
+  "pages": [
     "pages/home/index",
-    "pages/my/my",
-    "pages/product/product",
-    "pages/salary/salary",
-    "pages/authorize/authorize"
+    "pages/my/index",
+    "pages/product/index",
+    "pages/salary/index",
+    "pages/bind/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -28,11 +28,12 @@
         "selectedIconPath": "images/home_icon_active.png"
       },
       {
-        "pagePath": "pages/my/my",
+        "pagePath": "pages/my/index",
         "text": "我的",
         "iconPath": "images/my_icon.png",
         "selectedIconPath": "images/my_icon_active.png"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

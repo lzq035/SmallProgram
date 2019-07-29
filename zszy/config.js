@@ -1,7 +1,7 @@
 module.exports = {
   version: "6.0.2",
   note: '接口封装',
-  subDomain: "tz", // 如果你的域名是： https://api.it120.cc/abcd 那么这里只要填写 abcd
+  subDomain: "zyapp/app/", // 如果你的域名是： https://api.it120.cc/abcd 那么这里只要填写 abcd
   appid: "wxa46b09d413fbcaff", // 您的小程序的appid，购物单功能需要使用
   shareProfile: '掌上众益' // 首页转发的时候话术
 }

@@ -4,6 +4,6 @@
   "backgroundColor": "#69C3AA",
   "navigationBarTitleText": "掌上众益",
   "usingComponents": {
-    "dialog": "../components/dialog/dialog"
+    "authorize": "../components/authorize/index"
   }
 }

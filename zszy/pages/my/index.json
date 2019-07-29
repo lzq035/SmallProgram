@@ -3,5 +3,8 @@
   "navigationBarBackgroundColor": "#69C3AA",
   "backgroundColor": "#69C3AA",
   "navigationBarTitleText": "个人中心",
-  "enablePullDownRefresh": false
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "authorize": "../components/authorize/index"
+  }
 }

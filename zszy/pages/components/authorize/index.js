@@ -1,3 +1,4 @@
+import {WXLOGIN} from '../../../utils/util.js'
 Component({
   options: {
     multipleSlots: true // 在组件定义时的选项中启用多slot支持
@@ -40,13 +41,13 @@ Component({
     //隐藏弹框
     hideDialog() {
       this.setData({
-        isShow: !this.data.isShow
+        isShow: false
       })
     },
     //展示弹框
     showDialog() {
       this.setData({
-        isShow: !this.data.isShow
+        isShow: true
       })
     },
     /**
@@ -56,8 +57,13 @@ Component({
       this.triggerEvent("confirmEvent");
     },
 
-    bindGetUserInfo() {
-      this.triggerEvent("bindGetUserInfo");
+    bindGetUserInfo(e) {
+      this.triggerEvent("bindGetUserInfo",e.detail);
+      // 用户点击授权后，这里可以做一些登陆操作
+      if (e.detail.errMsg == 'getUserInfo:ok') {
+        this.hideDialog();
+        WXLOGIN(e.detail.encryptedData, e.detail.iv);
+      }
     }
 
   }

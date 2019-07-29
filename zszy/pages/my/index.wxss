@@ -56,7 +56,8 @@ page{
     padding-right:20rpx;
 }
 .bind-btn{
-  width:100%;
-  position: absolute;
-  bottom: 0;
+  margin: 10% 15%;
+}
+button[type=primary] {
+  background-color:#69C3AA;
 }
