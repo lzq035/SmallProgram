@@ -1,6 +1,7 @@
 //home.js
 //获取应用实例
 const app = getApp()
+const { hasAuthorizeFun } = require('../../utils/util.js');
 
 Page({
 
@@ -19,6 +20,11 @@ Page({
   },
   navigateTo: function(e){
     const page = e.currentTarget.dataset.address;
+    hasAuthorizeFun((hasAuthorize, userInfo)=>{
+      this.setData({ hasAuthorize})
+      this.initDialog();
+    });
+    if (!this.data.hasAuthorize) return;
     if(page === 'shop') {
       wx.showToast({
         title: '敬请期待',
@@ -54,7 +60,7 @@ Page({
     !this.data.hasAuthorize ? this.showDialog() : this.hideDialog()
   },
   showDialog: function () {
-    wx.hideTabBar();
+    // wx.hideTabBar();
     this.dialog.showDialog();
   },
   hideDialog: function () {
@@ -69,7 +75,7 @@ Page({
     if (e.detail.errMsg == 'getUserInfo:ok'){
       // this.hideDialog();
       wx.showTabBar();
-      app.globalData.userInfo = e.detail
+      app.globalData.userInfo = e.detail.userInfo
       this.setData({ hasAuthorize: true})
     }
     // this.login();
@@ -78,17 +84,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (app.globalData.userInfo) {
-      this.setData({ hasAuthorize: true })
-      this.initDialog();
-      return
-    }
-    wx.getSetting({
-      success: res => {
-        res.authSetting['scope.userInfo'] == undefined ? this.setData({ hasAuthorize: false }) : this.setData({ hasAuthorize: true })
-        if (res.authSetting['scope.userInfo'] == undefined) this.initDialog();
-      }
-    })
   },
 
   /**

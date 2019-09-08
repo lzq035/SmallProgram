@@ -1,6 +1,7 @@
 // my.js
 //获取应用实例
-const app = getApp()
+const app = getApp();
+const { hasAuthorizeFun } = require('../../utils/util.js');
 Page({
 
   /**
@@ -8,25 +9,15 @@ Page({
    */
   data: {
     userInfo:{},
-    hasAuthorize: false
+    hasAuthorize: false,
+    defaultImg:'/images/user.png'
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (app.globalData.userInfo) {
-      this.setData({ hasAuthorize: true })
-      this.setData({ userInfo: app.globalData.userInfo.userInfo })
-      this.initDialog();
-    } else {
-      wx.getSetting({
-        success: res => {
-          res.authSetting['scope.userInfo'] == undefined ? this.setData({ hasAuthorize: false }) : this.setData({ hasAuthorize: true })
-          if (res.authSetting['scope.userInfo'] == undefined) this.initDialog();
-        }
-      })
-    }
+    if (app.globalData.userInfo) this.setData({ hasAuthorize:true, userInfo: app.globalData.userInfo || {} })
   },
 
   /**
@@ -44,7 +35,7 @@ Page({
     this.dialog.showDialog();
   },
   hideDialog:function() {
-    wx.showTabBar();
+    // wx.showTabBar();
     this.dialog.hideDialog();
   },
   confirmEvent: function () {
@@ -53,10 +44,9 @@ Page({
   bindGetUserInfo: function (e) {
     // 用户点击授权后，这里可以做一些登陆操作
     if (e.detail.errMsg == 'getUserInfo:ok') {
-      this.dialog.hideDialog();
-      app.globalData.userInfo = e.detail
-      this.setData({ userInfo: app.globalData.userInfo })
-      this.setData({ hasAuthorize: true })
+      // this.dialog.hideDialog();
+      app.globalData.userInfo = e.detail.userInfo
+      this.setData({ hasAuthorize: true, userInfo: app.globalData.userInfo || {} })
     }
     // this.login();
   },
@@ -68,6 +58,11 @@ Page({
     })
   },
   bind:function(){
+    hasAuthorizeFun((hasAuthorize, userInfo) => {
+      this.setData({ hasAuthorize, userInfo: hasAuthorize ? userInfo:{}})
+      this.initDialog();
+    });
+    if (!this.data.hasAuthorize) return;
     wx.navigateTo({
       url: '/pages/bind/index',
     })

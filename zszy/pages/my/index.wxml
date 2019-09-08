@@ -1,7 +1,7 @@
 <!--my.wxml-->
 <view class="container">
 	<view class="userinfo">
-		<image wx:if="{{userInfo && userInfo.avatarUrl}}" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+		<image class="userinfo-avatar" src="{{userInfo.avatarUrl||defaultImg}}" background-size="cover"></image>
 		<text class="userinfo-nickname">{{ userInfo.nickName }}</text>
 	</view>
   <view class='content-list'>

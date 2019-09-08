@@ -1,4 +1,4 @@
-import WXAPI from '../wxapi/main.js'
+import WXAPI from '../wxapi/main.js';
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -41,9 +41,22 @@ const WXLOGIN = (encryptedData,iv)=>{
   });
 }
 
+const hasAuthorizeFun = (fn)=>{
+  if (getApp().globalData.userInfo) {
+    fn(true, getApp().globalData.userInfo.userInfo);
+    } else {
+      wx.getSetting({
+        success: res => {
+          if (res.authSetting['scope.userInfo'] == undefined) fn(false);
+        }
+      })
+    }
+}
+
 module.exports = {
   formatTime,
   formatDate,
   formatMonth,
+  hasAuthorizeFun,
   WXLOGIN,
 }
