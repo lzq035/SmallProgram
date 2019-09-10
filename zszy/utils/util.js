@@ -28,29 +28,33 @@ const formatMonth = date => {
   return [year, month].map(formatNumber).join('-')
 };
 
-const WXLOGIN = (encryptedData,iv)=>{
+const WXLOGIN = (encryptedData, iv) => {
   //通过code获取用户信息
-  wx.login({
-    // provider: 'weixin',
-    success: function (res) {
-      let code = res.code;
-      WXAPI.login({ code, encryptedData,iv }).then(res => {
-        console.log(res)
-      })
-    }
-  });
+  return new Promise((resolve, reject) => {
+    wx.login({
+      // provider: 'weixin',
+      success: function (res) {
+        let code = res.code;
+        WXAPI.login({ code, encryptedData, iv }).then(res => {
+          resolve(res);
+        }).catch(err=>{
+          reject(err);
+        })
+      }
+    });
+  })
+
 }
 
-const hasAuthorizeFun = (fn)=>{
+const hasAuthorizeFun = (fn) => {
   if (getApp().globalData.userInfo) {
-    fn(true, getApp().globalData.userInfo.userInfo);
-    } else {
-      wx.getSetting({
-        success: res => {
-          if (res.authSetting['scope.userInfo'] == undefined) fn(false);
-        }
-      })
-    }
+  } else {
+    wx.getSetting({
+      success: res => {
+        if (res.authSetting['scope.userInfo'] == undefined) fn();
+      }
+    })
+  }
 }
 
 module.exports = {

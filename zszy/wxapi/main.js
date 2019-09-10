@@ -51,10 +51,10 @@ const request = (url, needSubDomain, method, config) => {
       },
       complete(res) {
         if (typeof (config.complete) === 'function') { config.complete(res); }
-        console.groupCollapsed(_url)
-        console.groupCollapsed(res)
-        console.groupEnd()
-        console.groupEnd()
+        console.groupCollapsed('接口：',_url);
+        console.log('入参:', config.params);
+        console.log('返回值：',res);
+        console.groupEnd();
       }
     })
   })

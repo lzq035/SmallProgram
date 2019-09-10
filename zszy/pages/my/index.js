@@ -17,7 +17,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (app.globalData.userInfo) this.setData({ hasAuthorize:true, userInfo: app.globalData.userInfo || {} })
+    this.initDialog();
   },
 
   /**
@@ -29,7 +29,7 @@ Page({
   initDialog() {
     //获得dialog组件
     this.dialog = this.selectComponent("#dialog1");
-    !this.data.hasAuthorize ? this.showDialog() : this.hideDialog()
+     this.hideDialog();
   },
   showDialog: function () {
     this.dialog.showDialog();
@@ -59,8 +59,7 @@ Page({
   },
   bind:function(){
     hasAuthorizeFun((hasAuthorize, userInfo) => {
-      this.setData({ hasAuthorize, userInfo: hasAuthorize ? userInfo:{}})
-      this.initDialog();
+      this.showDialog();
     });
     if (!this.data.hasAuthorize) return;
     wx.navigateTo({
@@ -71,6 +70,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    if (app.globalData.userInfo) {
+      this.setData({ hasAuthorize: true, userInfo: app.globalData.userInfo || {} });
+      this.hideDialog();
+    }
   },
 
   /**

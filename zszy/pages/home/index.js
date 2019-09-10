@@ -16,13 +16,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-   
+    this.initDialog();
+    this.hideDialog();
   },
   navigateTo: function(e){
     const page = e.currentTarget.dataset.address;
     hasAuthorizeFun((hasAuthorize, userInfo)=>{
-      this.setData({ hasAuthorize})
-      this.initDialog();
+      this.showDialog();
     });
     if (!this.data.hasAuthorize) return;
     if(page === 'shop') {
@@ -57,7 +57,7 @@ Page({
   initDialog() {
     //获得dialog组件
     this.dialog = this.selectComponent("#dialog");
-    !this.data.hasAuthorize ? this.showDialog() : this.hideDialog()
+    this.hideDialog();
   },
   showDialog: function () {
     // wx.hideTabBar();
@@ -73,8 +73,8 @@ Page({
   bindGetUserInfo: function (e) {
     // 用户点击授权后，这里可以做一些登陆操作
     if (e.detail.errMsg == 'getUserInfo:ok'){
-      // this.hideDialog();
-      wx.showTabBar();
+      this.hideDialog();
+      // wx.showTabBar();
       app.globalData.userInfo = e.detail.userInfo
       this.setData({ hasAuthorize: true})
     }
@@ -84,6 +84,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    if (app.globalData.userInfo) {
+      this.setData({ hasAuthorize: true });
+      this.hideDialog();
+    }
   },
 
   /**
